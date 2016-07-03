@@ -3285,7 +3285,7 @@ extern "C" int rados_ioctx_selfmanaged_snap_set_write_ctx(rados_ioctx_t io,
 
 extern "C" int rados_write(rados_ioctx_t io, const char *o, const char *buf, size_t len, uint64_t off)
 {
-  tracepoint(librados, rados_write_enter, io, o, buf, len, off);
+  tracepoint(librados, rados_write_enter, io, o, buf, len, off);/* chee_commment: tracepoint使用了什么机制？是否使用了内核的tracepoint?*/
   if (len > UINT_MAX/2)
     return -E2BIG;
   librados::IoCtxImpl *ctx = (librados::IoCtxImpl *)io;
