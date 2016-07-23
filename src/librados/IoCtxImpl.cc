@@ -615,11 +615,11 @@ int librados::IoCtxImpl::write(const object_t& oid, bufferlist& bl,
   if (len > UINT_MAX/2)
     return -E2BIG;
   ::ObjectOperation op;
-  prepare_assert_ops(&op);
+  prepare_assert_ops(&op);/* chee_comment: assert operations.是便于定位问题吗？*/
   bufferlist mybl;
-  mybl.substr_of(bl, 0, len);
-  op.write(off, mybl);
-  return operate(oid, &op, NULL);
+  mybl.substr_of(bl, 0, len);/* chee_commmet:buffer.cc buffer::list::substr_of*/
+  op.write(off, mybl);/*chee_comment:这个具体是干什么的？*/
+  return operate(oid, &op, NULL);/*chee_comment:operate*/
 }
 
 int librados::IoCtxImpl::append(const object_t& oid, bufferlist& bl, size_t len)

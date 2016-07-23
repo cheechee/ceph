@@ -3289,10 +3289,10 @@ extern "C" int rados_write(rados_ioctx_t io, const char *o, const char *buf, siz
   if (len > UINT_MAX/2)
     return -E2BIG;
   librados::IoCtxImpl *ctx = (librados::IoCtxImpl *)io;
-  object_t oid(o);
-  bufferlist bl;
-  bl.append(buf, len);
-  int retval = ctx->write(oid, bl, len, off);
+  object_t oid(o);/* chee_commment: 参看对象的构造函数*/
+  bufferlist bl;/* chee_commment: in buffer_fwd.h*/
+  bl.append(buf, len);/* chee_commment: buf添加到buffer list中，做了一次拷贝*/
+  int retval = ctx->write(oid, bl, len, off);/* chee_comment: ---> ioCtxImpl.cc*/
   tracepoint(librados, rados_write_exit, retval);
   return retval;
 }

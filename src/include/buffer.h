@@ -450,8 +450,8 @@ namespace buffer CEPH_BUFFER_API {
     bool is_zero() const;
 
     // modifiers
-    void clear() {
-      _buffers.clear();
+    void clear() {/*chee_commment:和声明在一起的函数应该是inline的？*/
+      _buffers.clear();/*chee_commment:clear是清除内容，会释放内存吗？*/
       _len = 0;
       _memcopy_count = 0;
       last_p = begin();

@@ -1887,8 +1887,8 @@ static simple_spinlock_t buffer_debug_lock = SIMPLE_SPINLOCK_INITIALIZER;
 
   void buffer::list::substr_of(const list& other, unsigned off, unsigned len)
   {
-    if (off + len > other.length())
-      throw end_of_buffer();
+    if (off + len > other.length())/* chee_commmet:off=other的偏移量,len=在other上的长度 */
+      throw end_of_buffer();/*chee_commment:throw以后返回值返回什么呢？*/
 
     clear();
 
