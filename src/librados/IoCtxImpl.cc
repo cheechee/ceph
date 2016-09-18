@@ -697,7 +697,7 @@ int librados::IoCtxImpl::operate(const object_t& oid, ::ObjectOperation *o,
 			 << " nspace=" << oloc.nspace << dendl;
   Objecter::Op *objecter_op = objecter->prepare_mutate_op(oid, oloc,
 							  *o, snapc, ut, flags,
-							  NULL, oncommit, &ver);
+							  NULL, oncommit, &ver);//chee-comment
   objecter->op_submit(objecter_op);
 
   mylock.Lock();
