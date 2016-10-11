@@ -1674,7 +1674,7 @@ extern "C" int ceph_ll_get_stripe_osd(class ceph_mount_info *cmount,
 				      struct ceph_file_layout* layout)
 {
   file_layout_t l;
-  int r = (cmount->get_client()->ll_get_stripe_osd(in, blockno, &l));
+  int r = (cmount->get_client()->ll_get_stripe_osd(in, blockno, &l));//chee_comment:居然从这儿可以调用crush算出osd
   l.to_legacy(layout);
   return r;
 }

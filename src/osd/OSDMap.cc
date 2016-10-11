@@ -1476,7 +1476,7 @@ int OSDMap::object_locator_to_pg(
     else
       ps = pool->hash_key(oid.name, loc.nspace);
   }
-  pg = pg_t(ps, loc.get_pool(), -1);
+  pg = pg_t(ps, loc.get_pool(), -1);//chee_comment:构建placement group
   return 0;
 }
 
@@ -1518,7 +1518,7 @@ void OSDMap::_remove_nonexistent_osds(const pg_pool_t& pool,
 
 int OSDMap::_pg_to_osds(const pg_pool_t& pool, pg_t pg,
                         vector<int> *osds, int *primary,
-			ps_t *ppps) const
+			ps_t *ppps) const//chee_comment:调用crush算法来计算
 {
   // map to osds[]
   ps_t pps = pool.raw_pg_to_pps(pg);  // placement ps
@@ -1688,7 +1688,7 @@ void OSDMap::pg_to_raw_up(pg_t pg, vector<int> *up, int *primary) const
 }
   
 void OSDMap::_pg_to_up_acting_osds(const pg_t& pg, vector<int> *up, int *up_primary,
-                                   vector<int> *acting, int *acting_primary) const
+                                   vector<int> *acting, int *acting_primary) const//chee_comment:获取到osds
 {
   const pg_pool_t *pool = get_pg_pool(pg.pool());
   if (!pool) {

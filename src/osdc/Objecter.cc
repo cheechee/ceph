@@ -2158,7 +2158,7 @@ void Objecter::op_submit(Op *op, ceph_tid_t *ptid, int *ctx_budget)
   ceph_tid_t tid = 0;
   if (!ptid)
     ptid = &tid;
-  _op_submit_with_budget(op, rl, ptid, ctx_budget);
+  _op_submit_with_budget(op, rl, ptid, ctx_budget);//chee_comment
 }
 
 void Objecter::_op_submit_with_budget(Op *op, shunique_lock& sul,
@@ -2191,7 +2191,7 @@ void Objecter::_op_submit_with_budget(Op *op, shunique_lock& sul,
 				      op_cancel(tid, -ETIMEDOUT); });
   }
 
-  _op_submit(op, sul, ptid);
+  _op_submit(op, sul, ptid);//chee_comment
 }
 
 void Objecter::_send_op_account(Op *op)
@@ -2285,7 +2285,7 @@ void Objecter::_op_submit(Op *op, shunique_lock& sul, ceph_tid_t *ptid)
 
   bool const check_for_latest_map = _calc_target(&op->target,
 						 &op->last_force_resend)
-    == RECALC_OP_TARGET_POOL_DNE;
+    == RECALC_OP_TARGET_POOL_DNE;//chee_comment:计算target
 
   // Try to get a session, including a retry if we need to take write lock
   int r = _get_session(op->target.osd, &s, sul);
@@ -2653,7 +2653,7 @@ int Objecter::_calc_target(op_target_t *t, epoch_t *last_force_resend,
   bool is_read = t->flags & CEPH_OSD_FLAG_READ;
   bool is_write = t->flags & CEPH_OSD_FLAG_WRITE;
 
-  const pg_pool_t *pi = osdmap->get_pg_pool(t->base_oloc.pool);
+  const pg_pool_t *pi = osdmap->get_pg_pool(t->base_oloc.pool);//chee_comment:获取到osdmap
   if (!pi) {
     t->osd = -1;
     return RECALC_OP_TARGET_POOL_DNE;
@@ -2705,7 +2705,7 @@ int Objecter::_calc_target(op_target_t *t, epoch_t *last_force_resend,
     }
   } else {
     int ret = osdmap->object_locator_to_pg(t->target_oid, t->target_oloc,
-					   pgid);
+					   pgid);//chee_comment:与osdmap相关
     if (ret == -ENOENT) {
       t->osd = -1;
       return RECALC_OP_TARGET_POOL_DNE;
