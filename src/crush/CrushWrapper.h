@@ -1083,7 +1083,7 @@ public:
   }
 
   void do_rule(int rule, int x, vector<int>& out, int maxout,
-	       const vector<__u32>& weight) const {
+	       const vector<__u32>& weight) const {//chee_comment:计算crush的包装函数
     Mutex::Locker l(mapper_lock);
     int rawout[maxout];
     int scratch[maxout * 3];

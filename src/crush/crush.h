@@ -179,7 +179,7 @@ struct crush_bucket_straw2 {
 /*
  * CRUSH map includes all buckets, rules, etc.
  */
-struct crush_map {
+struct crush_map {//chee_comment:待分析
 	struct crush_bucket **buckets;
 	struct crush_rule **rules;
 
